@@ -1,0 +1,31 @@
+---
+title: "REDCap Project Startup"
+format: html
+editor: visual
+---
+
+## Create a Codebook
+
+Templates can be useful to help get started
+
+## Create REDCap project
+
+### Eligibility fields
+
+Talk with PI about the order of the eligibility questions. This is important to track for creating the study consort.
+
+### Selecting variable names
+
+We talked about using AI to select variable names by feeding it the labels
+
+### Branching Logic
+
+### Lost participants
+
+Each event should have attemps to contact to track when participants are considered lost.
+
+## Testing the new project
+
+Part of the testing should be done keeping in mind key information needed for the consort diagram. Such as completing each form in the same order real participants will.
+
+## Create study consort

@@ -1,0 +1,124 @@
+﻿"Variable / Field Name","Form Name","Section Header","Field Type","Field Label","Choices, Calculations, OR Slider Labels","Field Note","Text Validation Type OR Show Slider Number","Text Validation Min","Text Validation Max",Identifier?,"Branching Logic (Show field only if...)","Required Field?","Custom Alignment","Question Number (surveys only)","Matrix Group Name","Matrix Ranking?","Field Annotation"
+record_id,miami_idea_exchange_enrollment_form,,text,"Record Number",,,,,,,,,,,,,
+header_image,miami_idea_exchange_enrollment_form,,descriptive,"<div class=""rich-text-field-label""><div class=""container"" style=""display: flex; align-items: center; justify-content: center;""> </div> <div class=""container"" style=""display: flex; align-items: center; justify-content: center;""><img class=""image"" style=""font-size: 20px; font-family: 'Times New'; color: rgb(3, 95, 29); padding-left: 20px; display: block; margin-left: auto; margin-right: auto;"" src=""https://med.miami.edu/-/media/millerschool/global-items/logos/19-106-miller-school-website-green.ashx?rev=b41e520f4d83424dae75417063818cdb"" height=""50""></div> <div class=""container"" style=""display: flex; align-items: center; justify-content: center;""> </div></div>",,,,,,,,,,,,,
+id_code,miami_idea_exchange_enrollment_form,,text,"ID Code",,"Must be numeric",number,,,,,y,,,,,
+date,miami_idea_exchange_enrollment_form,,text,Date,,,date_mdy,,,y,,y,,,,,
+date_enroll_month,miami_idea_exchange_enrollment_form,,calc,"@CALCTEXT Date Month",month([date]),,,,,,,,,,,," @HIDDEN"
+date_enroll_year,miami_idea_exchange_enrollment_form,,calc,"@CALCTEXT Date Year",year([date]),,,,,,,,,,,," @HIDDEN"
+is_mobile,miami_idea_exchange_enrollment_form,,radio,"Enrollment Location","0, Fixed | 1, Mobile",,,,,,,y,,,,,
+is_mobile_where,miami_idea_exchange_enrollment_form,,radio,"If this is a mobile visit, where did it occur?","8, County Line | 5, Florida City | 10, Homestead | 4, Liberty City | 9, Miami Beach | 6, Opa Locka | 7, Overtown | 3, Backpacking | 11, Delivery",,,,,,[is_mobile]='1',y,,,,,
+language,miami_idea_exchange_enrollment_form,,radio,"Primary or Preferred Language","1, English | 2, Spanish | 3, French or Creole | 4, Other {language_other} | -999, Refused or don't know",,,,,,,,,,,,
+language_other,miami_idea_exchange_enrollment_form,,text,,,,alpha_only,,,,"[language] = 4",,,,,,
+initials_pt,miami_idea_exchange_enrollment_form,,text,"Name Initials",,"First & Last (i.e. JS)",alpha_only,,,y,,y,,,,,
+unique_initials_pt,miami_idea_exchange_enrollment_form,,text,"@CALCTEXT Name Initials",,,alpha_only,,,y,,y,,,,," @CALCTEXT(upper([initials_pt]))
+@HIDDEN"
+initials_mother,miami_idea_exchange_enrollment_form,,text,"Mother's Initials",,"First & Last (i.e. JS)",alpha_only,,,y,,y,,,,,
+unique_initials_mother,miami_idea_exchange_enrollment_form,,text,"@CALCTEXT Mother's Name Initials",,,alpha_only,,,y,,y,,,,," @CALCTEXT(upper([initials_mother]))
+@HIDDEN"
+birth_month,miami_idea_exchange_enrollment_form,,radio,"Birth Month","1, January | 2, February | 3, March | 4, April | 5, May | 6, June | 7, July | 8, August | 9, September | 10, October | 11, November | 12, December",,,,,,,y,,,,,
+unique_birth_month,miami_idea_exchange_enrollment_form,,text,"@CALCTEXT Birth Month",,,,,,,,,,,,," @CALCTEXT(
+if([birth_month]='1', 'J',
+if([birth_month]='2', 'F',
+if([birth_month]='3', 'M',
+if([birth_month]='4', 'A',
+if([birth_month]='5', 'M',
+if([birth_month]='6', 'J',
+if([birth_month]='7', 'J',
+if([birth_month]='8', 'A',
+if([birth_month]='9', 'S',
+if([birth_month]='10', 'O',
+if([birth_month]='11', 'N',
+if([birth_month]='12', 'D', ""None""))))))))))))))
+@HIDDEN"
+birth_year,miami_idea_exchange_enrollment_form,,text,"Birth Year",,"Specify four digit year (i.e. 1993)",number,1900,2500,,,y,,,,,
+simulated_dob,miami_idea_exchange_enrollment_form,,text,"@CALCTEXT Simulated DOB
+
+",,,,,,,,,,,,," @CALCTEXT(if([birth_month]>9,
+concat([birth_month],'-01-', [birth_year]), 
+concat('0',[birth_month],'-01-',[birth_year]))))
+@HIDDEN"
+race,miami_idea_exchange_enrollment_form,,radio,Race,"1, White | 2, Black or African American | 3, Asian | 4, Native American | 5, Pacific Islander | 6, Multiracial | -999, Refused or don't know",,,,,,,y,,,,,
+unique_race,miami_idea_exchange_enrollment_form,,text,"@CALCTEXT Race",,,,,,,,,,,,," @CALCTEXT(
+if([race]='1', 'W',
+if([race]='2', 'B',
+if([race]='3', 'A',
+if([race]='4', 'N',
+if([race]='5', 'P',
+if([race]='6', 'M',
+if([race]='7', 'R', ""None""))))))))
+@HIDDEN"
+is_hispanic,miami_idea_exchange_enrollment_form,,radio,Ethnicity,"1, Hispanic or Latino | 0, Not Hispanic or Latino | -999, Refused or don't know",,,,,,,y,,,,,
+sex_at_birth,miami_idea_exchange_enrollment_form,,radio,"Sex Assigned at Birth","1, Male | 2, Female | 3, Intersex | -999, Refused or don't know",,,,,,,y,,,,,
+unique_sex_at_birth,miami_idea_exchange_enrollment_form,,text,"@CALCTEXT Sex at birth ",,,,,,,,,,,,," @CALCTEXT(
+if([sex_at_birth]='1', 'M',
+if([sex_at_birth]='2', 'F',
+if([sex_at_birth]='3', 'I',
+if([sex_at_birth]='-999', 'R', ""None"")))))
+@HIDDEN"
+unique_idcode,miami_idea_exchange_enrollment_form,,text,"<div class=""rich-text-field-label""><p style=""text-align: left;""><span style=""color: rgb(22, 145, 121);"">Unique ID Code</span></p></div>",,,,,,,,,,,,," @CALCTEXT(concat([unique_initials_pt],[unique_initials_mother],[unique_birth_month],[birth_year],[unique_race],[unique_sex_at_birth]))"
+gender,miami_idea_exchange_enrollment_form,,radio,"Gender Identity","1, Woman | 2, Man | 3, Genderqueer | 4, Non-binary | 5, Agender | 6, Not listed {gender_other} | -999, Refused or don't know",,,,,,,y,,,,,
+gender_other,miami_idea_exchange_enrollment_form,,text,,,,,,,,"[gender] = 6",,,,,," @HIDDEN"
+is_transgender,miami_idea_exchange_enrollment_form,,yesno,"Do you identify as transgender and/or as someone of trans experience?",,,,,,,,,,,,,
+name,miami_idea_exchange_enrollment_form,,text,"(Old) Name for Comparison",,,,,,,,,,,,," @HIDDEN"
+zipcode,miami_idea_exchange_enrollment_form,,text,"Zip Code",,"If unknown or N/A, enter 00000 ",,,,y,,y,,,,,
+sexual_orientation,miami_idea_exchange_enrollment_form,,radio,"Sexual Orientation","1, Straight or Heterosexual | 2, Gay or Lesbian | 3, Bisexual | 4, Questioning | -999, Refused or don't know",,,,,,,,,,,,
+relationship,miami_idea_exchange_enrollment_form,,radio,"Current Relationship Status","1, Single | 2, Married | 3, Separated or Divorced | 4, Widowed or Widower | 5, Partnered (Boyfriend, girlfriend, etc) | -999, Refused or don't know",,,,,,,,,,,,
+education,miami_idea_exchange_enrollment_form,,dropdown,"What is your highest level of educational attainment?","1, Nursery to 8th Grade | 2, Some High School (No Diploma) | 3, High School Diploma or GED | 4, Some College | 5, College Degree | 6, Advanced Degree | 8, Vocational Training or Technical School | -999, Refused or don't know",,,,,,,,,,,,
+employment,miami_idea_exchange_enrollment_form,,dropdown,"What is your employment status?","1, Currently employed - paid by salary | 2, Currently employed - paid by hour | 3, Self-employed | 4, Unemployed less than 1 year | 5, Unemployed greater than 1 year | 9, Student | 7, Disabled | 8, Retired | -999, Refused or don't know",,,,,,,,,,,,
+is_homeless,miami_idea_exchange_enrollment_form,,radio,"Are you currently homeless?
+
+(Do you lack a fixed, regular, and adequate nighttime residence?)","1, Yes | 2, No | -999, Refused or don't know",,,,,,,,,,,,
+living_situation,miami_idea_exchange_enrollment_form,,radio,"<div class=""rich-text-field-label""><p>How would you describe your current housing or living situation?</p></div>","1, I have stable housing | 2, I do NOT have stable housing (i.e. shelter, car, hotel, couch-surfing) | 3, Rough sleeping (i.e. street, park, outside) | -999, Refused or don't know",,,,,,,,,,,,
+noninject_drug_thirty,miami_idea_exchange_enrollment_form,"<div class=""rich-text-field-label""><h4 style=""text-align: center;"">Substance Use Behaviors</h4></div>",checkbox,"<div class=""rich-text-field-label""><p>In the <span style=""text-decoration: underline;"">past 30 days</span>, which <span style=""color: #e03e2d;"">NON-Injection </span>drugs have you used (i.e. snorting, smoking, swallowing)?</p></div>","0, None | 1, Alcohol | 2, Barbiturates | 3, Carfentanil | 4, Cocaine | 5, Crack | 6, Fentanyl | 7, Heroin | 8, Marijuana | 9, Methamphetamine | 10, Pain Killers | 11, Prescription Opioids | 12, Xylazine/Tranq | 15, Molly/MDMA | 13, Other non-prescription {noninjection_drugs_other} | 14, Some other prescription medication {noninjection_drugs_other} | -999, Refused or don't know",,,,,,,,,,,,
+noninjection_drugs_other,miami_idea_exchange_enrollment_form,,text,,,,,,,,"[noninject_drug_thirty(13)]='1' or [noninject_drug_thirty(14)]='1'",,,,,,
+injection_drugs,miami_idea_exchange_enrollment_form,,checkbox,"<div class=""rich-text-field-label""><p>In the <span style=""text-decoration: underline;"">past 30 days</span>, which <span style=""color: #e03e2d;"">Injection </span>drugs have you used?</p></div>","0, None | 1, Carfentanil | 2, Cocaine | 3, Crack | 4, Fentanyl | 5, Heroin | 6, Hormones | 7, Methamphetamine | 8, Pain Killers | 9, Prescription Opioids | 10, Speedball | 11, Steroids | 12, Xylazine/Tranq | 15, Molly/MDMA | 13, Other non-prescription {injection_drugs_other} | 14, Some other prescription medication {injection_drugs_other} | -999, Refused or don't know",,,,,,,,,,,,
+injection_drugs_other,miami_idea_exchange_enrollment_form,,text,,,,,,,,"[injection_drugs(13)] = '1' or [injection_drugs(14)] = '1'",,,,,,
+age_first_inject,miami_idea_exchange_enrollment_form,,text,"How old were you the first time you injected any drug?",,"Age in years",,,,,,,,,,,
+inject_amount_daily,miami_idea_exchange_enrollment_form,,dropdown,"<div class=""rich-text-field-label""><p>In the <span style=""text-decoration: underline;"">past 30 days</span>, how many times <span style=""text-decoration: underline;"">on average</span> have you injected per day?</p></div>","0, Less than daily | 1, 1-2 times/day | 2, 3-4 times/day | 3, 5-7 times/day | 4, 8-10 times/day | 5, 11-15 times/day | 6, >15 times/day | 7, Haven't injected in past 30 days",,,,,,,,,,,,
+reused_thirty,miami_idea_exchange_enrollment_form,,radio,"<div class=""rich-text-field-label""><p>In the <span style=""text-decoration: underline;"">past 30 days</span>, how often have you reused a syringe/needle or other works when injecting? (only applies to a needle that you already used)</p></div>","1, None of the time (0% of the time) | 2, Some of the time (< 50% of the time) | 3, Most of the time (>50% of the time) | 4, All of the time (100% of the time) | -999, Refused or don't know",,,,,,,,,,,,
+shared_thirty,miami_idea_exchange_enrollment_form,,radio,"<div class=""rich-text-field-label""><p>In the <span style=""text-decoration: underline;"">past 30 days</span>, how often have you shared syringes/needles or other works when injecting?</p></div>","1, None of the time (0% of the time) | 2, Some of the time (< 50% of the time) | 3, Most of the time (>50% of the time) | 4, All of the time (100% of the time) | -999, Refused or don't know",,,,,,,,,,,,
+has_od,miami_idea_exchange_enrollment_form,,radio,"Have you ever overdosed due to injection drug use?","1, Yes | 0, No | -999, Refused or don't know",,,,,,,,,,,,
+sex_exchange_thirty,miami_idea_exchange_enrollment_form,,radio,"<div class=""rich-text-field-label""><p>In the <span style=""text-decoration: underline;"">past 30 days</span>, have you had sex in exchange for money or drugs?</p></div>","1, Yes | 0, No | -999, Refused or don't know",,,,,,,,,,,,
+covid_vaccine,miami_idea_exchange_enrollment_form,"Have you received the following vaccines?",radio,"COVID-19 Vaccine","1, Yes | 0, No | -999, Unknown/Refuse",,,,,,,,,,vaccine_info,,
+hep_a_vaccine,miami_idea_exchange_enrollment_form,,radio,"Hepatitis A Vaccine","1, Yes | 0, No | -999, Unknown/Refuse",,,,,,,,,,vaccine_info,,
+hep_b_vaccine,miami_idea_exchange_enrollment_form,,radio,"Hepatitis B Vaccine","1, Yes | 0, No | -999, Unknown/Refuse",,,,,,,,,,vaccine_info,,
+hiv_test_ever,miami_idea_exchange_enrollment_form,"<div class=""rich-text-field-label""><h4 style=""text-align: center;""><span style=""font-weight: normal;"">Testing Information</span></h4></div>",radio,"<div class=""rich-text-field-label""><p>Have you ever been tested for HIV?</p></div>","1, Yes | 0, No | -999, Refused or don't know",,,,,,,y,,,,,
+hiv_test_prior_result,miami_idea_exchange_enrollment_form,,radio,"Result of Most Recent HIV Test","2, Positive | 1, Negative | -999, Refused or don't know",,,,,,"[hiv_test_ever] = 1",y,,,,,
+hiv_test_tx,miami_idea_exchange_enrollment_form,,yesno,"If positive, are you currently receiving HIV treatment ?",,,,,,,"[hiv_test_prior_result] = 2",,,,,,
+hiv_test_today,miami_idea_exchange_enrollment_form,,yesno,"Agrees to HIV test today?",,,,,,,,y,,,,,
+hiv_test_today_brand,miami_idea_exchange_enrollment_form,,text,"HIV Rapid Test  Brand
+
+Updated as of 09082024 to multiple choice instead of free text",,,,,,,[hiv_test_today]=1,,,,,," @HIDDEN"
+hiv_test_brand,miami_idea_exchange_enrollment_form,,radio,"HIV Rapid Test  Brand","1, OraQuick | 2, SureCheck | 3, Clearview | 4, Other {hiv_brand_other}",,,,,,[hiv_test_today]=1,,,,,,
+hiv_brand_other,miami_idea_exchange_enrollment_form,,text,,,,,,,,"[hiv_test_brand] = 4",,,,,,
+hiv_test_today_result,miami_idea_exchange_enrollment_form,,radio,"HIV Rapid Result Today","2, Positive | 1, Negative",,,,,,[hiv_test_today]=1,y,,,,,
+hcv_test_ever,miami_idea_exchange_enrollment_form,,radio,"Have you ever been tested for Hepatitis C (HCV)?","1, Yes | 0, No | -999, Refused or don't know",,,,,,,y,,,,,
+hcv_test_prior_result,miami_idea_exchange_enrollment_form,,radio,"Result of Most Recent HCV Test","2, Positive | 1, Negative | -999, Refused or don't know",,,,,,"[hcv_test_ever] = 1",y,,,,,
+hcv_test_tx,miami_idea_exchange_enrollment_form,,yesno,"If positive, did you receive hepatitis C (HCV) treatment?",,,,,,,"[hcv_test_prior_result] = '2'",,,,,,
+hcv_test_today,miami_idea_exchange_enrollment_form,,yesno,"Agrees to HCV test today?",,,,,,,,y,,,,,
+hcv_test_today_result,miami_idea_exchange_enrollment_form,,radio,"HCV Test Result Today","2, Positive | 1, Negative",,,,,,[hcv_test_today]=1,y,,,,,
+hcv_rna_offered,miami_idea_exchange_enrollment_form,,yesno,"Was HCV RNA testing offered?",,,,,,,,y,,,,,
+hcv_rna_accepted,miami_idea_exchange_enrollment_form,,yesno,"Was HCV RNA testing accepted?",,,,,,,[hcv_rna_offered]=1,y,,,,,
+hcv_rna_results,miami_idea_exchange_enrollment_form,,radio,"HCV RNA Lab Results","1, Undetectable | 2, Detectable but unquantifiable | 3, Detectable and quantifiable",,,,,,[hcv_rna_accepted]=1,y,,,,,
+hcv_rna_viral_load,miami_idea_exchange_enrollment_form,,text,"HCV RNA Viral Load (iu/ml)",,,number,0,,,[hcv_rna_results]=3,y,,,,,
+syphillis_test_ever,miami_idea_exchange_enrollment_form,,radio,"Have you ever been tested for Syphillis?","1, Yes | 0, No | -999, Refused or don't know",,,,,,,,,,,,
+syphillis_result_prior,miami_idea_exchange_enrollment_form,,radio,"Result of Most Recent Syphillis Test","2, Positive | 1, Negative",,,,,,"[syphillis_test_ever] = '1'",,,,,,
+syphillis_agree_today,miami_idea_exchange_enrollment_form,,yesno,"Agrees to Syphillis test today?",,,,,,,,,,,,,
+syphillis_result_today,miami_idea_exchange_enrollment_form,,radio,"Result of Syphillis Test Today","2, Positive | 1, Negative",,,,,,"[syphillis_agree_today] = '1'",,,,,,
+hear_about_exchange,miami_idea_exchange_enrollment_form,"<div class=""rich-text-field-label""><h4 style=""text-align: center;"">Administrative Information</h4></div>",checkbox,"Where did you hear about the IDEA Exchange?","1, Word of mouth (friends, family, etc) | 2, Fliers | 3, Healthcare professional or referral (counselor, social worker, etc) | 4, Online | 5, Newspaper | 6, Other {hear_about_other} | -999, Refused or don't know",,,,,,,,,,,,
+hear_about_other,miami_idea_exchange_enrollment_form,,text,,,,,,,,"[hear_about_exchange(6)]= '1'",,,,,,
+holding_meds,miami_idea_exchange_enrollment_form,,yesno,"Are we holding medications for this participant?",,,,,,,,,,,,,
+holding_meds_locker,miami_idea_exchange_enrollment_form,,text,"Pill Locker Number",,,,,,,[holding_meds]=1,,,,,,
+interview_notes,miami_idea_exchange_enrollment_form,,notes,"Interviewer Notes",,,,,,,,,,,,,
+completed_by,miami_idea_exchange_enrollment_form,,dropdown,"Completed By ","5, Frankie | 6, David | 7, Eddie | 10, Chevel | 21, Jimmie | 24, MaryAnn | 25, Donald | 26, Chad | 27, Darryl | 28, Emilie | 29, Naomi | 30, Daniela Brennan | 31, Noby | 2, Emy | 8, Carolina | 9, Elisha | 20, Aracelis | 22, Belen | 23, Arrow | 32, Nonie | 33, Marissa | 34, Mariana | 4, Other {completed_by_other}",,,,,,,y,,,,," @HIDECHOICE = '2,8,9,20,22,23'"
+completed_by_other,miami_idea_exchange_enrollment_form,,text,,,,,,,,"[completed_by] = '4'",,,,,,
+id_info,miami_idea_exchange_enrollment_form,,descriptive,"<div class=""rich-text-field-label""><p> </p> <table style=""border-collapse: collapse; width: 696px; height: 119.562px; background-color: rgb(206, 212, 217); border-style: inset;"" border=""0""> <tbody> <tr style=""height: 42.375px;""> <td style=""width: 695px; height: 42.375px; text-align: center;""> <h5><span style=""color: #000000;""> <span style=""text-decoration: underline;"">For Staff Reference Only</span></span></h5> </td> </tr> <tr style=""height: 25px;""> <td style=""width: 695px; height: 25px; text-align: center;""><span style=""color: rgb(22, 145, 121);"">Assigned ID Code: {id_code}</span></td> </tr> <tr style=""height: 27.1875px;""> <td style=""width: 695px; height: 27.1875px; text-align: center;""><span style=""color: rgb(22, 145, 121);"">Unique ID Code: {unique_idcode}</span></td> </tr> <tr style=""height: 25px;""> <td style=""width: 695px; text-align: left; height: 25px;""><span style=""color: #ba372a;""><span style=""color: #000000;"">************************************************************************************************</span><br></span></td> </tr> </tbody> </table> <p> </p></div>",,,,,,,,,,,,,
+referral_grid,miami_idea_exchange_enrollment_form,,descriptive,"<div class=""rich-text-field-label""><p> </p> <table style=""border-collapse: collapse; width: 696px; height: 239px; background-color: rgb(206, 212, 217); border-style: inset;"" border=""0""> <tbody> <tr style=""height: 39px;""> <td style=""width: 695px; height: 39px; text-align: center;""> <h5><span style=""color: #000000;""> <span style=""text-decoration: underline;"">NOTE TO STAFF:  Please refer participant to the following services.</span></span></h5> </td> </tr> <tr style=""height: 25px;""> <td style=""width: 695px; height: 25px; text-align: center;""><span style=""color: #ba372a;"">{hiv_no_prior_test_refer}</span></td> </tr> <tr style=""height: 25px;""> <td style=""width: 695px; height: 25px; text-align: center;""><span style=""color: #ba372a;"">{hiv_test_treat_refer}</span></td> </tr> <tr style=""height: 25px;""> <td style=""width: 695px; height: 25px; text-align: center;""><span style=""color: #ba372a;"">{is_vaccinated_hep_a_refer}</span></td> </tr> <tr style=""height: 25px;""> <td style=""width: 695px; height: 25px; text-align: center;""><span style=""color: #ba372a;"">{is_vaccinated_hep_b_refer}</span></td> </tr> <tr style=""height: 25px;""> <td style=""width: 695px; height: 25px; text-align: center;""><span style=""color: #ba372a;"">{hcv_no_prior_test_refer}</span></td> </tr> <tr style=""height: 25px;""> <td style=""width: 695px; text-align: center; height: 25px;""><span style=""color: #ba372a;"">{hcv_test_today_result_rna}</span></td> </tr> <tr style=""height: 25px;""> <td style=""width: 695px; height: 25px; text-align: center;""><span style=""color: #ba372a;"">{hcv_test_treat_refer}</span></td> </tr> <tr style=""height: 25px;""> <td style=""width: 695px; text-align: left; height: 25px;""><span style=""color: #ba372a;""><span style=""color: #000000;"">************************************************************************************************</span><br></span></td> </tr> </tbody> </table> <p> </p></div>",,,,,,,,,,,,,
+hiv_no_prior_test_refer,miami_idea_exchange_enrollment_form,,descriptive,"<div class=""rich-text-field-label""><p style=""text-align: center;""><span style=""color: #e03e2d;"">HIV Testing</span></p></div>",,,,,,,[hiv_test_today]=0,,,,,,
+hiv_test_treat_refer,miami_idea_exchange_enrollment_form,,descriptive,"<div class=""rich-text-field-label""><p style=""text-align: center;""><span style=""color: #e03e2d;""><span style=""text-decoration: underline;"">Engagement Team:</span> Linkage to HIV Care</span></p></div>",,,,,,,"[hiv_test_tx] = '0' or [hiv_test_today_result]=2",,,,,,
+hcv_no_prior_test_refer,miami_idea_exchange_enrollment_form,,descriptive,"<div class=""rich-text-field-label""><p style=""text-align: center;""><span style=""color: #e03e2d;"">HCV Testing</span></p></div>",,,,,,,[hcv_test_today]=0,,,,,,
+hcv_test_treat_refer,miami_idea_exchange_enrollment_form,,descriptive,"<div class=""rich-text-field-label""><p style=""text-align: center;""><span style=""color: #e03e2d;""><span style=""text-decoration: underline;"">Engagement Team:</span> Linkage to HCV Care</span></p></div>",,,,,,,"[hcv_test_tx] = '0' or [hcv_test_today_result]='2'",,,,,,
+hcv_test_today_result_rna,miami_idea_exchange_enrollment_form,,descriptive,"<div class=""rich-text-field-label""><p style=""text-align: center;""><span style=""color: #e03e2d;"">HCV RNA Testing</span></p></div>",,,,,,,"[hcv_test_today_result]=2 and [hcv_rna_accepted]=0",,,,,,
+is_vaccinated_hep_a_refer,miami_idea_exchange_enrollment_form,,descriptive,"<div class=""rich-text-field-label""><p style=""text-align: center;""><span style=""color: #e03e2d;""><span style=""text-decoration: underline;"">Engagement Team:</span> Hep A Vaccine</span></p></div>",,,,,,,"[hep_a_vaccine] = 0 OR [hep_a_vaccine] = -999",,,,,,
+is_vaccinated_hep_b_refer,miami_idea_exchange_enrollment_form,,descriptive,"<div class=""rich-text-field-label""><p style=""text-align: center;""><span style=""color: #e03e2d;""><span style=""text-decoration: underline;"">Engagement Team:</span> Hep B Vaccine</span></p></div>",,,,,,,"[hep_b_vaccine] = 0 OR [hep_b_vaccine] = -999",,,,,,
+days_since_enrolllment,miami_idea_exchange_enrollment_form,,calc,"Days Since Enrollment","datediff(""today"",[date],""d"")",,,,,,,,,,,," @HIDDEN"

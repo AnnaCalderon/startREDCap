@@ -1,0 +1,8 @@
+
+TEMPLATES:
+Templates were based on a codebook from an existing REDCap project. The structure
+was kept and the variables names were changed. We also selected only some
+common forms such as demographics, contact information, PHQ9 and GAD7. These
+templates were not meant to be reprodusable. They follow the REDCap typical
+codecook structure. Thus researchers have a starting point and can continue to
+personalize their project as desired.

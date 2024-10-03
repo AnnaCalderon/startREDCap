@@ -1,0 +1,22 @@
+variable_field_name,form_name,section_header,field_type,field_label,choices_calculations_or_slider_labels,field_note,text_validation_type_or_show_slider_number,text_validation_min,text_validation_max,identifier,branching_logic_show_field_only_if,required_field,custom_alignment,question_number_surveys_only,matrix_group_name,matrix_ranking,field_annotation
+gad_intro,gad7,NA,descriptive,"<div class=""rich-text-field-label""><h6>Over the last <span style=""font-weight: normal;"">2 weeks</span>, how often have you been bothered by the following problems?</h6></div>",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+gad1,gad7,NA,radio,"Feeling nervous, anxious, or on edge","3, Nearly every day | 2, More than half the days | 1, Several days | 0, Not at all | -999, Decline to answer",NA,NA,NA,NA,NA,NA,y,NA,NA,gad_intro,NA,NA
+gad2,gad7,NA,radio,Not being able to stop or control worrying,"3, Nearly every day | 2, More than half the days | 1, Several days | 0, Not at all | -999, Decline to answer",NA,NA,NA,NA,NA,NA,y,NA,NA,gad_intro,NA,NA
+gad3,gad7,NA,radio,Worrying too much about different things,"3, Nearly every day | 2, More than half the days | 1, Several days | 0, Not at all | -999, Decline to answer",NA,NA,NA,NA,NA,NA,y,NA,NA,gad_intro,NA,NA
+gad4,gad7,NA,radio,Trouble relaxing,"3, Nearly every day | 2, More than half the days | 1, Several days | 0, Not at all | -999, Decline to answer",NA,NA,NA,NA,NA,NA,y,NA,NA,gad_intro,NA,NA
+gad5,gad7,NA,radio,Being so restless that it is hard to sit still,"3, Nearly every day | 2, More than half the days | 1, Several days | 0, Not at all | -999, Decline to answer",NA,NA,NA,NA,NA,NA,y,NA,NA,gad_intro,NA,NA
+gad6,gad7,NA,radio,Becoming easily annoyed or irritable,"3, Nearly every day | 2, More than half the days | 1, Several days | 0, Not at all | -999, Decline to answer",NA,NA,NA,NA,NA,NA,y,NA,NA,gad_intro,NA,NA
+gad7,gad7,NA,radio,Feeling afraid as if something awful might happen,"3, Nearly every day | 2, More than half the days | 1, Several days | 0, Not at all | -999, Decline to answer",NA,NA,NA,NA,NA,NA,y,NA,NA,gad_intro,NA,NA
+gad_total_raw,gad7,NA,calc,"GAD-7 raw sum, missingness not accounted","sum([gad1], [gad2], [gad3], [gad4], [gad5], [gad6], [gad7])",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,@HIDDEN-SURVEY
+gad_total_all,gad7,NA,calc,"GAD-7 total, missingness accounted","if([gad_total_raw] >= '0', [gad_total_raw],
+if([gad_total_raw] < '0', -444,
+if(([gad1]='' OR [gad2]='' OR [gad3]='' OR [gad4]='' OR [gad5]='' OR [gad6]='' OR [gad7]=''), -444, [gad_total_raw])))",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,@HIDDEN-SURVEY
+gad_is_mild,gad7,NA,calc,GAD-7 score <= 5 (mild),"if([gad_total_all] <= 5 AND [gad_total_all] >= '0', 1,
+if([gad_total_all] < 0, -444,0))",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,@HIDDEN-SURVEY
+gad_is_moderate,gad7,NA,calc,GAD-7 score >= 10 (moderate),"if([gad_total_all] >= 10, 1,
+if([gad_total_all] < 0, -444,0))",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,@HIDDEN-SURVEY
+gad_is_severe,gad7,NA,calc,GAD-7 score >= 15 (severe),"if([gad_total_all] >= 15, 1,
+if([gad_total_all] < 0, -444,0))",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,@HIDDEN-SURVEY
+gad_eligible,gad7,NA,calc,GAD eligible,"if([gad_total_all] >= 10, 1,0)",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,@HIDDEN-SURVEY
+gad_eligible_text,gad7,NA,text,GAD eligible text,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"@CALCTEXT(if([gad_is_moderate] = 1, ""Eligible"", ""Not eligible""))
+@HIDDEN-SURVEY"

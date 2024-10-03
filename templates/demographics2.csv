@@ -1,0 +1,9 @@
+variable_field_name,form_name,section_header,field_type,field_label,choices_calculations_or_slider_labels,field_note,text_validation_type_or_show_slider_number,text_validation_min,text_validation_max,identifier,branching_logic_show_field_only_if,required_field,custom_alignment,question_number_surveys_only,matrix_group_name,matrix_ranking,field_annotation
+date_of_birth,brief_screen_summary,NA,text,Date of Birth,,,date_mdy,,,,,,,,,,
+sex_at_birth,demographics,NA,radio,Sex Assigned at Birth,"1, Male | 2, Female | 3, Uknown | 4, Undifferentiated | -999, Refused or don't know",,,,,,,y,,,,,
+race,demographics,NA,radio,Race,"1, White | 2, Black or African American | 3, Asian | 4, American Indian or Alaska Native | 5, Native Hawaiian or Other Pacific Islander | 6, More than one race | 7, Unknown | 8, Other {race_other} | -999, Not reported",,,,,,,y,,,,,
+race_other,demographics,NA,text,Specify another race,,,integer,,,,[race(8)],y,,,,,
+ethnicity,demographics,NA,radio,Ethnicity,"1, Hispanic or Latino | 0, Not Hispanic or Latino | Unknown |-999, Not reported",,,,,,,y,,,,,
+education_level,demographics,NA,radio,Highest grade of school you've completed,"1, Less than 9th grade | 2, 9th Ð 12th grade (No diploma) | 3, High School Diploma or Equivalent | 4, Some College (No Degree)  | 5, College Degree  | 6, Graduate or Professional Degree | -999, Not reported",NA,NA,NA,NA,NA,NA,y,NA,NA,NA,NA,NA
+marital_status,demographics,NA,radio,Current Marital Status,"1, Never Married | 2, Married | 3, Other {marital_status_other} | 4, Separated | 5, Divorced | 6, Widowed ",,,,,,,,,,,,
+marital_status_other,demographics,NA,text,Specify another marital status,,,integer,,,,[marital_status(3)],y,,,,,

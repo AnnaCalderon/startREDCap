@@ -1,0 +1,56 @@
+---
+title: "Steps to create templates"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+```
+
+## Demographics 1
+
+```{r}
+sample_demo1 <- read_csv("samples/DimeMasPilotCopy_DataDictionary_2024-10-02.csv") |>
+  clean_names() |> 
+  filter(form_name == "demographics") |> 
+  filter(variable_field_name == "education" |
+           variable_field_name == "work" | 
+           variable_field_name == "income" |
+           variable_field_name == "income_depend" | 
+           variable_field_name == "born" |
+           variable_field_name == "born_oth" |
+           variable_field_name == "usyears" |
+           variable_field_name == "citizenship" |
+           variable_field_name == "citizenship_oth"|
+           variable_field_name == "relationship"| 
+           variable_field_name == "raceeth" |
+           variable_field_name == "other_raceeth")
+  # write_csv("templates/demographics1.csv")
+
+```
+
+## GAD 7
+```{r}
+read_csv("samples/DimeMasPilotCopy_DataDictionary_2024-10-02.csv") |>
+  clean_names() |> 
+  filter(form_name == "gad7") |> 
+  write_csv("templates/gad7.csv")
+```
+
+## Contact Information
+
+```{r}
+read_csv("samples/DimeMasPilotCopy_DataDictionary_2024-10-02.csv") |>
+  clean_names() |> 
+  filter(form_name == "contact_information") 
+```
+
+## Demographics 2 (NIH template)
+
+```{r}
+# https://www.niams.nih.gov/grants-funding/conducting-clinical-research/trial-policies-guidelines-templates/data-safety-monitoring-guidelines-policies/clinical-study-templates-forms
+
+read_csv("templates/demographics2.csv")
+```
